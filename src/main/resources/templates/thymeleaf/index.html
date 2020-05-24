@@ -280,7 +280,7 @@
                     <td th:text = "${estudiante.matricula}"></td>
                     <td th:text = "${estudiante.telefono}"></td>
                     <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit" th:id="${estudiante.matricula} + ' ' + ${estudiante.nombre} + ' ' + ${estudiante.apellido} + ' ' + ${estudiante.telefono}" onclick="edit_clicked(this.id)">&#xE254;</i></a>
+                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit" th:id="${estudiante.matricula} + '-' + ${estudiante.nombre} + '-' + ${estudiante.apellido} + '-' + ${estudiante.telefono}" onclick="edit_clicked(this.id)">&#xE254;</i></a>
                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" th:id="${estudiante.matricula}" onclick="delete_clicked(this.id)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                 </tr>
@@ -397,7 +397,7 @@
 
 <script type="text/javascript">
     function edit_clicked(id) {
-        var data = id.split(" ");
+        var data = id.split("-");
         var iterator = data.values();
         document.getElementById("matriculaEdit").value = iterator.next().value;
         document.getElementById("nombreEdit").value = iterator.next().value;

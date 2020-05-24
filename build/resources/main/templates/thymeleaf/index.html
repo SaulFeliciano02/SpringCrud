@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -243,7 +243,7 @@
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>Manage <b>Employees</b></h2>
+                    <h2>Administrar <b>Estudiantes</b></h2>
                 </div>
                 <div class="col-sm-6">
                     <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
@@ -260,94 +260,31 @@
 								<label for="selectAll"></label>
 							</span>
                 </th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Actions</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Matricula</th>
+                <th>Telefono</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-                </td>
-                <td>Thomas Hardy</td>
-                <td>thomashardy@mail.com</td>
-                <td>89 Chiaroscuro Rd, Portland, USA</td>
-                <td>(171) 555-2222</td>
-                <td>
-                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-                </td>
-                <td>Dominique Perrier</td>
-                <td>dominiqueperrier@mail.com</td>
-                <td>Obere Str. 57, Berlin, Germany</td>
-                <td>(313) 555-5735</td>
-                <td>
-                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1">
-								<label for="checkbox3"></label>
-							</span>
-                </td>
-                <td>Maria Anders</td>
-                <td>mariaanders@mail.com</td>
-                <td>25, rue Lauriston, Paris, France</td>
-                <td>(503) 555-9931</td>
-                <td>
-                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1">
-								<label for="checkbox4"></label>
-							</span>
-                </td>
-                <td>Fran Wilson</td>
-                <td>franwilson@mail.com</td>
-                <td>C/ Araquil, 67, Madrid, Spain</td>
-                <td>(204) 619-5731</td>
-                <td>
-                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1">
-								<label for="checkbox5"></label>
-							</span>
-                </td>
-                <td>Martin Blank</td>
-                <td>martinblank@mail.com</td>
-                <td>Via Monte Bianco 34, Turin, Italy</td>
-                <td>(480) 631-2097</td>
-                <td>
-                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                </td>
-            </tr>
+            <th:block th:each="estudiante : ${listaEstudiantes}">
+                <tr>
+                    <td>
+                        <span class="custom-checkbox">
+                            <input type="checkbox" th:id="'checkbox' + ${estudiante.matricula}" name="options[]" value="1">
+                            <label th:for="'checkbox' + ${estudiante.matricula}"></label>
+                        </span>
+                    </td>
+                    <td th:text = "${estudiante.nombre}" th:id="${estudiante.nombre}"></td>
+                    <td th:text = "${estudiante.apellido}"></td>
+                    <td th:text = "${estudiante.matricula}"></td>
+                    <td th:text = "${estudiante.telefono}"></td>
+                    <td>
+                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit" th:id="${estudiante.matricula} + '-' + ${estudiante.nombre} + '-' + ${estudiante.apellido} + '-' + ${estudiante.telefono}" onclick="edit_clicked(this.id)">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" th:id="${estudiante.matricula}" onclick="delete_clicked(this.id)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    </td>
+                </tr>
+            </th:block>
             </tbody>
         </table>
         <div class="clearfix">
@@ -364,13 +301,13 @@
         </div>
     </div>
 </div>
-<!-- Edit Modal HTML -->
+<!-- Add Modal HTML -->
 <div id="addEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <form role="form" method="post" action="/crear">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Employee</h4>
+                    <h4 class="modal-title">Añadir Estudiante</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -380,7 +317,7 @@
                     </div>
                     <div class="form-group">
                         <label>Apellido</label>
-                        <input type="email" name="apellido" class="form-control" required>
+                        <input type="text" name="apellido" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Matricula</label>
@@ -403,27 +340,27 @@
 <div id="editEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form role="form" method="post" action="/editar">
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Employee</h4>
+                    <h4 class="modal-title">Editar Estudiante</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" required>
+                        <label>Nombre</label>
+                        <input type="text" name="nombre" id="nombreEdit" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" required>
+                        <label>Apellido</label>
+                        <input type="text" name="apellido" id="apellidoEdit" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" required></textarea>
+                        <label>Matricula</label>
+                        <input type="text" name="matricula" id="matriculaEdit" class="form-control" disabled required>
                     </div>
                     <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" class="form-control" required>
+                        <label>Telefono</label>
+                        <input type="text" name="telefono" id="telefonoEdit" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -438,14 +375,14 @@
 <div id="deleteEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form method="post" id="delete_form">
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Employee</h4>
+                    <h4 class="modal-title">Eliminar Estudiante</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete these Records?</p>
-                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                    <p>Esta seguro de realizar esta operacion?</p>
+                    <p class="text-warning"><small>Esta accion no se puede deshacer una vez realizada.</small></p>
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -457,3 +394,18 @@
 </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    function edit_clicked(id) {
+        var data = id.split("-");
+        var iterator = data.values();
+        document.getElementById("matriculaEdit").value = iterator.next().value;
+        document.getElementById("nombreEdit").value = iterator.next().value;
+        document.getElementById("apellidoEdit").value = iterator.next().value;
+        document.getElementById("telefonoEdit").value = iterator.next().value;
+    }
+
+    function delete_clicked(id) {
+        document.getElementById("delete_form").setAttribute("action", "/eliminar/" + id);
+    }
+</script>
