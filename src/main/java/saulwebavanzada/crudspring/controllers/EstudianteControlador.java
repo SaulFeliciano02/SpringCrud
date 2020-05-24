@@ -3,7 +3,8 @@ package saulwebavanzada.crudspring.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import saulwebavanzada.crudspring.entities.Estudiante;
 import saulwebavanzada.crudspring.services.EstudianteServicio;
 
 import java.util.List;
@@ -17,7 +18,40 @@ public class EstudianteControlador {
 
     @RequestMapping(path = "/listar")
     public String listarEstudiantes(Model model){
-        return "index";
+        model.addAttribute("listaEstudiantes", estudianteServicio.getEstudiantes());
+        return "/thymeleaf/index";
+    }
+
+    @RequestMapping(path = "/crear")
+    public String crearEstudiante(Model model, @RequestParam(name = "nombre") String nombre,
+                                   @RequestParam(name = "apellido") String apellido,
+                                   @RequestParam(name = "telefono") long telefono,
+                                   @RequestParam(name = "matricula") long matricula){
+        Estudiante estudiante = new Estudiante(nombre, apellido, matricula, telefono);
+        estudianteServicio.crearEstudiante(estudiante);
+        return "redirect:/listar";
+    }
+
+    @RequestMapping(path = "/editar")
+    public String editarEstudiante(Model model, @RequestParam(name = "nombre") String nombre,
+                                   @RequestParam(name = "apellido") String apellido,
+                                   @RequestParam(name = "telefono") long telefono,
+                                   @RequestParam(name = "matricula") long matricula){
+        Estudiante estudiante = new Estudiante(nombre, apellido, matricula, telefono);
+        estudianteServicio.editarEstudiante(estudiante);
+        return "redirect:/listar";
+    }
+
+    @RequestMapping(path = "/eliminar/{matricula}")
+    public String eliminarEstudiante(Model model, @PathVariable(name = "matricula") long matricula){
+        estudianteServicio.eliminarEstudiante(matricula);
+        return "redirect:/listar";
+    }
+
+    @RequestMapping(path = "/buscar/{matricula}")
+    public String buscarEstudiante(Model model, @PathVariable(name = "matricula") long matricula){
+        model.addAttribute("listaEstudiantes", estudianteServicio.getEstudianteByMatricula(matricula));
+        return "/thymeleaf/index";
     }
 
     /**@RequestMapping(path = "buscar/{matricula}")
