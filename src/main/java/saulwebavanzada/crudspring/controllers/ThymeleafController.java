@@ -19,10 +19,11 @@ public class ThymeleafController {
      * Para ejecutar: http://localhost:8080/
      * @return
      */
-    @RequestMapping(path = "/")
+    @RequestMapping(path = "/index")
     public String index(){
         //
         // direccioando a la vista.
-        return "/thymeleaf/index";
+        //remover el / del inicio de las direcciones para que funcione en docker ej: "/thymeleaf/index" a "thymeleaf/index"
+        return "thymeleaf/index";
     }
 }

@@ -19,7 +19,7 @@ public class EstudianteControlador {
     @RequestMapping(path = "/listar")
     public String listarEstudiantes(Model model){
         model.addAttribute("listaEstudiantes", estudianteServicio.getEstudiantes());
-        return "/thymeleaf/index";
+        return "thymeleaf/index";
     }
 
     @RequestMapping(path = "/crear")
@@ -51,7 +51,7 @@ public class EstudianteControlador {
     @RequestMapping(path = "/buscar/{matricula}")
     public String buscarEstudiante(Model model, @PathVariable(name = "matricula") long matricula){
         model.addAttribute("listaEstudiantes", estudianteServicio.getEstudianteByMatricula(matricula));
-        return "/thymeleaf/index";
+        return "thymeleaf/index";
     }
 
     /**@RequestMapping(path = "buscar/{matricula}")

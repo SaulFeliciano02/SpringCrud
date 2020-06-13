@@ -356,7 +356,7 @@
                     </div>
                     <div class="form-group">
                         <label>Matricula</label>
-                        <input type="text" name="matricula" id="matriculaEdit" class="form-control" disabled required>
+                        <input type="text" name="matricula" id="matriculaEdit" class="form-control" readonly required>
                     </div>
                     <div class="form-group">
                         <label>Telefono</label>
@@ -399,6 +399,9 @@
     function edit_clicked(id) {
         var data = id.split("-");
         var iterator = data.values();
+        console.log(id)
+        console.log(data);
+        console.log(iterator);
         document.getElementById("matriculaEdit").value = iterator.next().value;
         document.getElementById("nombreEdit").value = iterator.next().value;
         document.getElementById("apellidoEdit").value = iterator.next().value;
